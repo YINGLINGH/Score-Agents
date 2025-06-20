@@ -1,0 +1,360 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 批改试卷
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.15@775950e2071600bd3ba0415ec306c1b1582bc4a2a94688d642f627d112d87cd3
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: list-operator
+      id: 1729745506050-source-1729745610135-target
+      selected: false
+      source: '1729745506050'
+      sourceHandle: source
+      target: '1729745610135'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: list-operator
+        targetType: llm
+      id: 1729745610135-source-1750240579121-target
+      selected: false
+      source: '1729745610135'
+      sourceHandle: source
+      target: '1750240579121'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1750240579121-source-1750241698262-target
+      selected: false
+      source: '1750240579121'
+      sourceHandle: source
+      target: '1750241698262'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1750241698262-source-1729746188871-target
+      selected: false
+      source: '1750241698262'
+      sourceHandle: source
+      target: '1729746188871'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1750240579121-source-1750243156749-target
+      source: '1750240579121'
+      sourceHandle: source
+      target: '1750243156749'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1729745506050'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        filter_by:
+          conditions:
+          - comparison_operator: in
+            key: type
+            value:
+            - image
+          enabled: true
+        item_var_type: file
+        limit:
+          enabled: false
+          size: 10
+        order_by:
+          enabled: false
+          key: ''
+          value: asc
+        selected: false
+        title: 筛选图片
+        type: list-operator
+        var_type: array[file]
+        variable:
+        - sys
+        - files
+      height: 92
+      id: '1729745610135'
+      position:
+        x: 534.5755052250962
+        y: 116.23300817742074
+      positionAbsolute:
+        x: 534.5755052250962
+        y: 116.23300817742074
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1750241698262.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1729746188871'
+      position:
+        x: 1511.321318732562
+        y: 104.52704150665781
+      positionAbsolute:
+        x: 1511.321318732562
+        y: 104.52704150665781
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1729745610135'
+          - last_record
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: Qwen/Qwen2.5-VL-72B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: f49a495c-ce1a-4fff-8f9d-686e091aa39a
+          role: system
+          text: '# 角色
+
+            你是一位认真负责的试卷批改老师，具备强大的文字信息扫描提取能力，能精确识别试卷{{#context#}}中的所有文字信息，涵盖中文、数字、符号、数学表达式，即便是学生的手写字也能准确且毫无透漏地识别出来。
+
+
+            ## 技能
+
+            ### 技能 1: 解析试卷信息
+
+            1.当接收到试卷相关内容时，精确解析其中的题目信息，完整保留题于，题目以及学生的回答。
+
+            2,将解析后的信息清断星现，方使后续查看与批改。
+
+            ### 回复示例
+
+            **题干**:[具体题干内容]
+
+            .**题目**:[具体题目内容]
+
+            **学生回答**:[学生写下的具体回答内容]
+
+            ### 示例结束
+
+
+            ## 限制
+
+            ·只专注于试卷文字信息的扫描提取与题口信息解析，不回答与试卷批改无关的话题。
+
+            ·所输出的内容必须按照给定的格式进行组织，不能偏离框架要求。'
+        - id: 04ccf04c-ec88-4a03-9fba-897179242263
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 题干和答案提取
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1729745610135'
+            - last_record
+          enabled: true
+      height: 90
+      id: '1750240579121'
+      position:
+        x: 935.3548010813504
+        y: 79.02036556257204
+      positionAbsolute:
+        x: 935.3548010813504
+        y: 79.02036556257204
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1750240579121'
+          - text
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: b4cf8171-0138-4161-9870-4b2fd796d044
+          role: system
+          text: '# 角色
+
+            你是一位资深的大学老师，在批改学生试卷时秉持严谨客观的态度，严格依据事实逻辑进行批改，不随意发挥，仅给出批改结果。
+
+            ## 技能
+
+            #### 技能 1: 批改试卷
+
+            1.当用户提供学生的试卷内容时，仔细审查每一道题目。
+
+            2.判断答案的正确性，依据数学原理和规则给出批改结果。
+
+            3.批改结果以简单清晰的方式呈现，例如“正确”“错误”。
+
+            ## 限制:
+
+            -只处理与批改数学试卷相关的内容，拒绝回答与试卷批改无关的话题。
+
+            -批改结果必须简洁明了，仅表明“正确”或“错误”，无需额外解释。每道题3分，最后给出得分。
+
+            -确保批改结渠符合事实逻辑。
+
+
+            试卷内容：{{#context#}}'
+        selected: false
+        title: 试卷批改
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750241698262'
+      position:
+        x: 1213.3979314251992
+        y: 213.0227436105448
+      positionAbsolute:
+        x: 1213.3979314251992
+        y: 213.0227436105448
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1750240579121.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 105
+      id: '1750243156749'
+      position:
+        x: 1270.6689292084918
+        y: -80.64864298758559
+      positionAbsolute:
+        x: 1270.6689292084918
+        y: -80.64864298758559
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -502.14058213235705
+      y: 330.73463847308636
+      zoom: 0.7531528352834649

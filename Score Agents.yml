@@ -1,0 +1,1065 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 评分智能体
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@21408d5c48cd9f18d66b08883d0999fe89e6d049c891324c2229dea23b9665d5
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.15@775950e2071600bd3ba0415ec306c1b1582bc4a2a94688d642f627d112d87cd3
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 5
+    opening_statement: 你好！我是你的评分助手。请告诉我你想评分的对象（例如：一篇文章、一个方案、一段代码）以及你关心的评分标准（如：逻辑性、创意、语法、实用性等），我会尽力为你提供专业的评分和分析。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1750172684603-source-1750174377062-target
+      source: '1750172684603'
+      sourceHandle: source
+      target: '1750174377062'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: if-else
+      id: 1750174377062-1-1750174674896-target
+      source: '1750174377062'
+      sourceHandle: '1'
+      target: '1750174674896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1750174674896-b408fa29-e831-4cf7-a551-240555f87b52-1750174814634-target
+      source: '1750174674896'
+      sourceHandle: b408fa29-e831-4cf7-a551-240555f87b52
+      target: '1750174814634'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1750174814634-source-1750174769274-target
+      source: '1750174814634'
+      sourceHandle: source
+      target: '1750174769274'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: knowledge-retrieval
+      id: 1750174769274-source-1750176103275-target
+      source: '1750174769274'
+      sourceHandle: source
+      target: '1750176103275'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1750176103275-source-1750176122044-target
+      source: '1750176103275'
+      sourceHandle: source
+      target: '1750176122044'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1750174377062-2-1750176233309-target
+      source: '1750174377062'
+      sourceHandle: '2'
+      target: '1750176233309'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1750176233309-source-1750176260607-target
+      source: '1750176233309'
+      sourceHandle: source
+      target: '1750176260607'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1750176260607-source-1750176312040-target
+      source: '1750176260607'
+      sourceHandle: source
+      target: '1750176312040'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1750174377062-1750174459568-1750176346884-target
+      source: '1750174377062'
+      sourceHandle: '1750174459568'
+      target: '1750176346884'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1750176346884-source-1750176377120-target
+      source: '1750176346884'
+      sourceHandle: source
+      target: '1750176377120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1750176122044-source-1750176415897-target
+      source: '1750176122044'
+      sourceHandle: source
+      target: '1750176415897'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1750176312040-source-1750176415897-target
+      source: '1750176312040'
+      sourceHandle: source
+      target: '1750176415897'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1750176377120-source-1750176415897-target
+      source: '1750176377120'
+      sourceHandle: source
+      target: '1750176415897'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1750174674896-true-1750178435940-target
+      source: '1750174674896'
+      sourceHandle: 'true'
+      target: '1750178435940'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: template-transform
+      id: 1750178435940-source-1750178492669-target
+      source: '1750178435940'
+      sourceHandle: source
+      target: '1750178492669'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: code
+      id: 1750178492669-source-1750174769274-target
+      source: '1750178492669'
+      sourceHandle: source
+      target: '1750174769274'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1750176415897-source-1750179225493-target
+      source: '1750176415897'
+      sourceHandle: source
+      target: '1750179225493'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1750179225493-source-answer-target
+      source: '1750179225493'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1750174377062-1750180172984-1750181249442-target
+      source: '1750174377062'
+      sourceHandle: '1750180172984'
+      target: '1750181249442'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1750181249442-source-1750180309168-target
+      source: '1750181249442'
+      sourceHandle: source
+      target: '1750180309168'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1750172684603'
+      position:
+        x: -256.89586839976283
+        y: 405.148698354997
+      positionAbsolute:
+        x: -256.89586839976283
+        y: 405.148698354997
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1750179225493.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 105
+      id: answer
+      position:
+        x: 2560
+        y: 315
+      positionAbsolute:
+        x: 2560
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 学术论文评分
+        - id: '2'
+          name: 代码质量评分
+        - id: '1750174459568'
+          name: 通用内容评分
+        - id: '1750180172984'
+          name: 除评分外的其他情况
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 248
+      id: '1750174377062'
+      position:
+        x: 178
+        y: 368.5
+      positionAbsolute:
+        x: 178
+        y: 368.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 0710dd22-a683-459e-b715-eb81c8af3492
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        - case_id: b408fa29-e831-4cf7-a551-240555f87b52
+          conditions:
+          - comparison_operator: empty
+            id: 903ce644-580a-4d32-bdd1-3e7298c34bbe
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: b408fa29-e831-4cf7-a551-240555f87b52
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 174
+      id: '1750174674896'
+      position:
+        x: 482
+        y: 201.5
+      positionAbsolute:
+        x: 482
+        y: 201.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(document: str = None, content: str = None) -> dict:\n    if\
+          \ document:\n        return {'result': document}\n    elif content:\n  \
+          \      return {'result': content}\n    else:\n        return {'result':\
+          \ None}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 论文内容
+        type: code
+        variables:
+        - value_selector:
+          - '1750178492669'
+          - output
+          variable: document
+        - value_selector:
+          - '1750174814634'
+          - text
+          variable: content
+      height: 54
+      id: '1750174769274'
+      position:
+        x: 1224
+        y: 246
+      positionAbsolute:
+        x: 1224
+        y: 246
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ee8aef7d-8a0d-4c30-82a6-b7b67fa3c9a7
+          role: system
+          text: '原始内容：{{#context#}}
+
+            请去掉最后的问题，保留原始内容中的学术论文的内容部分'
+        selected: false
+        title: 提取论文内容
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750174814634'
+      position:
+        x: 857
+        y: 300.5
+      positionAbsolute:
+        x: 857
+        y: 300.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - hKCWRV8EMHFVhNKFnwtVfS3DuYtb6ibYUGkFcPxptVSqVh7VhdKse69lXBTBDONb
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: netease-youdao/bce-reranker-base_v1
+            provider: langgenius/siliconflow/siliconflow
+          top_k: 4
+        query_variable_selector:
+        - '1750174769274'
+        - result
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 92
+      id: '1750176103275'
+      position:
+        x: 1528
+        y: 246
+      positionAbsolute:
+        x: 1528
+        y: 246
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1750176103275'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: f11f23cd-24a2-4292-ab7d-333bf21b5648
+          role: system
+          text: '你是一个学术评审专家，请根据学术论文的标准对内容进行评分：
+
+
+            学术评分维度：
+
+            1. 研究问题的重要性和创新性（25%）
+
+            2. 文献综述的全面性和深度（20%）
+
+            3. 研究方法的科学性和严谨性（20%）
+
+            4. 数据分析的准确性和充分性（15%）
+
+            5. 结论的可靠性和贡献度（10%）
+
+            6. 写作质量和规范性（10%）
+
+
+            参考标准：{{#context#}}
+
+
+            评分内容：{{#1750174769274.result#}}
+
+
+            请提供：
+
+            1. 各维度详细评分（0-100分）
+
+            2. 具体评分依据和建议
+
+            3. 学术价值评估
+
+            4. 综合评分和等级'
+        - id: 4cb1f582-2ea5-474e-8e4e-1108a5d6a56f
+          role: user
+          text: 请进行学术评分分析。
+        selected: false
+        title: 学术论文评分
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750176122044'
+      position:
+        x: 1831
+        y: 246
+      positionAbsolute:
+        x: 1831
+        y: 246
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 6f41cc0b-1170-423f-be71-8ffd0f900342
+          role: system
+          text: '原始内容：{{#context#}}
+
+            请去掉最后的问题，保留原始内容中的代码的内容部分'
+        selected: false
+        title: 提取代码内容
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750176233309'
+      position:
+        x: 509
+        y: 452.9842834334896
+      positionAbsolute:
+        x: 509
+        y: 452.9842834334896
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import re\nimport json\n\ndef main(content: str, weights: str = \"\"\
+          ) -> dict:\n    # 代码质量分析\n    lines = content.split('\\n')\n    total_lines\
+          \ = len(lines)\n    comment_lines = sum(1 for line in lines if line.strip().startswith('#')\
+          \ or line.strip().startswith('//') or '\"\"\"' in line or \"'''\" in line)\n\
+          \    blank_lines = sum(1 for line in lines if not line.strip())\n    code_lines\
+          \ = total_lines - comment_lines - blank_lines\n    \n    # 基础指标计算\n    comment_ratio\
+          \ = comment_lines / max(total_lines, 1) * 100 if total_lines > 0 else 0\n\
+          \    complexity_score = min(len(re.findall(r'\\b(if|for|while|try|except|def|class)\\\
+          b', content)) * 2, 100)\n    \n    # 代码风格检查\n    style_issues = 0\n    if\
+          \ re.search(r'[a-z][A-Z]', content):  # camelCase detection\n        style_issues\
+          \ += 1\n    if len(re.findall(r'\\n\\s*\\n\\s*\\n', content)) > total_lines\
+          \ * 0.1:  # 过多空行\n        style_issues += 1\n    \n    style_score = max(100\
+          \ - style_issues * 10, 0)\n    \n    analysis_result = {\n        \"total_lines\"\
+          : total_lines,\n        \"code_lines\": code_lines,\n        \"comment_lines\"\
+          : comment_lines,\n        \"comment_ratio\": round(comment_ratio, 2),\n\
+          \        \"complexity_score\": complexity_score,\n        \"style_score\"\
+          : style_score,\n        \"analysis_summary\": f\"代码共{total_lines}行，其中有效代码{code_lines}行，注释率{comment_ratio:.1f}%\"\
+          \n    }\n    \n    return {\"result\": json.dumps(analysis_result, ensure_ascii=False)}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码分析
+        type: code
+        variables:
+        - value_selector:
+          - '1750176233309'
+          - text
+          variable: content
+      height: 54
+      id: '1750176260607'
+      position:
+        x: 852
+        y: 484.5
+      positionAbsolute:
+        x: 852
+        y: 484.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1750176260607'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 8f037ce7-81ae-4b23-95ab-d1b2a7eacf5a
+          role: system
+          text: '你是一个代码评审专家，请根据代码质量标准进行评分：
+
+
+            代码评分维度：
+
+            1. 代码结构和设计（25%）：模块化、可扩展性
+
+            2. 代码规范性（20%）：命名规范、格式统一
+
+            3. 注释和文档（15%）：注释清晰、文档完整
+
+            4. 性能和效率（15%）：算法优化、资源使用
+
+            5. 安全性（15%）：安全编码实践
+
+            6. 可维护性（10%）：代码可读性、易修改
+
+
+            代码分析结果：{{#context#}}
+
+
+            原始代码：{{#1750176233309.text#}}
+
+
+            请提供：
+
+            1. 各维度评分和分析
+
+            2. 代码优化建议
+
+            3. 潜在问题识别
+
+            4. 综合评分'
+        - id: b6e62498-20fa-4930-ba1f-bb8e788cf26c
+          role: user
+          text: 请进行代码质量评分。
+        selected: false
+        title: 代码质量评分
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750176312040'
+      position:
+        x: 1211.4842834334895
+        y: 484.5
+      positionAbsolute:
+        x: 1211.4842834334895
+        y: 484.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 5e6623e5-7caf-40fd-bddd-7042dfa79371
+          role: system
+          text: '原始内容：{{#context#}}
+
+            请去掉最后的问题，保留原始内容中的通用内容的部分'
+        selected: false
+        title: 提取通用内容
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750176346884'
+      position:
+        x: 515
+        y: 656.9842834334896
+      positionAbsolute:
+        x: 515
+        y: 656.9842834334896
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 375ddb49-49bf-42ce-91e3-242f3fffba78
+          role: system
+          text: '你是一个专业的内容评分专家。请对提供的内容进行全面评分，评分标准如下：
+
+
+            1. 内容质量（30%）：准确性、完整性、深度
+
+            2. 逻辑结构（25%）：条理清晰、逻辑合理
+
+            3. 语言表达（20%）：表达清晰、语法正确
+
+            4. 创新性（15%）：观点新颖、有独特见解
+
+            5. 实用性（10%）：对读者有价值、可操作性
+
+
+            如果用户提供了自定义权重，请按照用户的权重进行调整。
+
+
+            请给出：
+
+            1. 各维度具体分数（0-100分）
+
+            2. 详细评分理由
+
+            3. 综合评分
+
+            4. 改进建议
+
+
+            内容：{{#1750176346884.text#}}'
+        - id: 774ab64b-2752-48ad-ae80-88bc0c11af6e
+          role: user
+          text: 请对上述内容进行评分分析。
+        selected: false
+        title: 通用内容评分
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750176377120'
+      position:
+        x: 866
+        y: 662.5
+      positionAbsolute:
+        x: 866
+        y: 662.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\nimport re\n\ndef main(academic_score: str = \"\", code_score:\
+          \ str = \"\", general_score: str = \"\", scoring_type: str = \"\") -> dict:\n\
+          \    # 根据评分类型选择相应的评分结果\n    active_score = \"\"\n    if scoring_type ==\
+          \ \"学术论文评分\" and academic_score:\n        active_score = academic_score\n\
+          \    elif scoring_type == \"代码质量评分\" and code_score:\n        active_score\
+          \ = code_score  \n    elif scoring_type == \"通用内容评分\" and general_score:\n\
+          \        active_score = general_score\n    \n    # 提取数字评分\n    scores =\
+          \ re.findall(r'(\\d+(?:\\.\\d+)?)\\s*分', active_score)\n    if not scores:\n\
+          \        scores = re.findall(r'(\\d+(?:\\.\\d+)?)', active_score)\n    \n\
+          \    # 计算综合评分\n    if scores:\n        numeric_scores = [float(score) for\
+          \ score in scores]\n        avg_score = sum(numeric_scores) / len(numeric_scores)\n\
+          \        \n        # 评分等级\n        if avg_score >= 90:\n            grade\
+          \ = \"优秀\"\n        elif avg_score >= 80:\n            grade = \"良好\"\n\
+          \        elif avg_score >= 70:\n            grade = \"中等\"\n        elif\
+          \ avg_score >= 60:\n            grade = \"及格\"\n        else:\n        \
+          \    grade = \"不及格\"\n    else:\n        avg_score = 0\n        grade =\
+          \ \"无法评分\"\n    \n    summary = {\n        \"scoring_type\": scoring_type,\n\
+          \        \"comprehensive_score\": round(avg_score, 1),\n        \"grade\"\
+          : grade,\n        \"detailed_analysis\": active_score,\n        \"score_breakdown\"\
+          : scores\n    }\n    \n    return {\"result\": json.dumps(summary, ensure_ascii=False)}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 评分汇总
+        type: code
+        variables:
+        - value_selector:
+          - '1750176122044'
+          - text
+          variable: academic_score
+        - value_selector:
+          - '1750176312040'
+          - text
+          variable: code_score
+        - value_selector:
+          - '1750176377120'
+          - text
+          variable: general_score
+        - value_selector:
+          - '1750174377062'
+          - class_name
+          variable: scoring_type
+      height: 54
+      id: '1750176415897'
+      position:
+        x: 1874
+        y: 484.5
+      positionAbsolute:
+        x: 1874
+        y: 484.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1750178435940'
+      position:
+        x: 832
+        y: 88
+      positionAbsolute:
+        x: 832
+        y: 88
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 转文本
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1750178435940'
+          - text
+          variable: arg1
+      height: 54
+      id: '1750178492669'
+      position:
+        x: 1155
+        y: 75
+      positionAbsolute:
+        x: 1155
+        y: 75
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1750176415897'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 4b8a4595-d344-4b7b-9c28-bafff0a5ef57
+          role: system
+          text: "请根据评分汇总结果，生成一份专业的评分报告：\n\n评分数据：{{#context#}}\n\n报告格式要求：\n1. \U0001F4CA\
+            \ 评分概览\n   - 评分类型\n   - 综合得分\n   - 评分等级\n\n2. \U0001F4CB 详细分析\n   - 各维度评分\n\
+            \   - 优点总结\n   - 不足之处\n\n3. \U0001F4A1 改进建议\n   - 具体建议\n   - 优化方向\n\n\
+            4. \U0001F4C8 评分趋势\n   - 整体表现\n   - 发展潜力\n\n请使用清晰的格式，包含表情符号，让报告更加直观易读。"
+        - id: 5926b66f-e752-4fab-89ba-6032a7483329
+          role: user
+          text: 请生成评分报告。
+        selected: false
+        title: 评分报告生成
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750179225493'
+      position:
+        x: 2181
+        y: 378.5
+      positionAbsolute:
+        x: 2181
+        y: 378.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1750181249442.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 105
+      id: '1750180309168'
+      position:
+        x: 921.1158789385669
+        y: 860.0053748988732
+      positionAbsolute:
+        x: 921.1158789385669
+        y: 860.0053748988732
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 51acc4e4-c202-423d-ad6a-efc52ff92805
+          role: system
+          text: '你是一个有用的助手，你的任务是回答除了评分以外的所有问题。
+
+            原始问题：{{#sys.query#}}'
+        selected: false
+        title: 回复其他问题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1750181249442'
+      position:
+        x: 555.1859085701956
+        y: 860.0053748988732
+      positionAbsolute:
+        x: 555.1859085701956
+        y: 860.0053748988732
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 226.83017406597025
+      y: -273.5478834502487
+      zoom: 0.757858283255199
